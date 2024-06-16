@@ -10,6 +10,19 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
+const allowedOrigins = ['https://onlineclothingstore-qja6xs3pz-shi-v-ani-singhs-projects.vercel.app/'];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
+
 // Database Connection With MongoDB
 mongoose.connect("mongodb+srv://shivanisingh:348956@cluster0.wwj96rm.mongodb.net/e-commerce");
 
